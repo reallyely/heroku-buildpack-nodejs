@@ -123,11 +123,8 @@ install_python() {
   local dir="${2:?}"
   echo "Downloading python3"
   local code resolve_result
-  
-  apt-get update
-  apt-get install python3
-  echo "chmod $dir/bin/*"
-  chmod +x "$dir"/bin/*
+  mkdir -p .heroku/python
+  curl --silent --show-error --fail --retry 3 --connect-timeout 5 "https://www.python.org/ftp/python/3.10.6/Python-3.10.6.tgz" | tar -zxC .heroku/python
 }
 
 install_npm() {

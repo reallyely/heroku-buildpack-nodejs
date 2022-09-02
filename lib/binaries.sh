@@ -122,12 +122,17 @@ install_nodejs() {
 install_python() {
   local dir="${2:?}"
   echo "Downloading python3"
+  local code resolve_result
+  
   code=$(curl "https://www.python.org/ftp/python/3.10.6/Python-3.10.6.tgz" -L --silent --fail --retry 5 --retry-max-time 15 --connect-timeout 5 -o /tmp/python3.tar.gz --write-out "%{http_code}")
-
+  local downloadFiles=$(ls /tmp/)
+  echo "Download FIles $downloadFiles"
   if [ "$code" != "200" ]; then
     echo "Unable to download python: $code" && false
   fi
+  rm -rf "${dir:?}"/*
   echo "Untarring to $dir"
+  echo "Desination dir contents $(ls $dir)"
   tar xzf /tmp/python3.tar.gz --strip-components 1 -C "$dir"
   echo "chmod $dir/bin/*"
   chmod +x "$dir"/bin/*

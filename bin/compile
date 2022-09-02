@@ -132,7 +132,7 @@ create_env() {
 }
 
 header "Creating runtime environment" | output "$LOG_FILE"
-
+mkdir -p "$BUILD_DIR/.heroku/python3/"
 mkdir -p "$BUILD_DIR/.heroku/node/"
 cd "$BUILD_DIR"
 create_env # can't pipe the whole thing because piping causes subshells, preventing exports

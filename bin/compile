@@ -57,7 +57,7 @@ source "$BP_DIR/lib/builddata.sh"
 # shellcheck source=lib/yarn-2.sh
 source "$BP_DIR/lib/yarn-2.sh"
 
-export PATH="$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
+export PATH="$BUILD_DIR/.heroku/python3/bin:$BUILD_DIR/.heroku/node/bin:$BUILD_DIR/.heroku/yarn/bin":$PATH
 
 LOG_FILE=$(mktemp -t node-build-log.XXXXX)
 echo "" > "$LOG_FILE"
@@ -220,6 +220,8 @@ install_bins() {
 
   meta_set "build-step" "install-nodejs"
   monitor "install-node-binary" install_nodejs "$node_engine" "$BUILD_DIR/.heroku/node"
+  meta_set "build-step" "install-python"
+  monitor "install-python-binary" install_python "$node_engine" "$BUILD_DIR/.heroku/python3"
 
   meta_set "build-step" "install-npm"
   monitor "install-npm-binary" install_npm "$npm_engine" "$BUILD_DIR/.heroku/node" $NPM_LOCK

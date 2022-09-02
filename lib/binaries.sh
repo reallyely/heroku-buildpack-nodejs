@@ -133,7 +133,11 @@ install_python() {
   rm -rf "${dir:?}"/*
   echo "Untarring to $dir"
   echo "Desination dir contents $(ls $dir)"
-  tar xzf /tmp/python3.tar.gz --strip-components 1 -C "$dir"
+  tar xzf /tmp/python3.tar.gz --strip-components 1 -C ./
+  ./configure
+  sudo make install
+  cp /usr/local/bin/python3 "$dir"/bin/
+  cp /usr/local/bin/python3-config "$dir"/bin/
   echo "chmod $dir/bin/*"
   chmod +x "$dir"/bin/*
 }

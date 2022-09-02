@@ -125,6 +125,10 @@ install_python() {
   local code resolve_result
   mkdir -p .heroku/python
   curl --silent --show-error --fail --retry 3 --connect-timeout 5 "https://www.python.org/ftp/python/3.10.6/Python-3.10.6.tgz" | tar -zxC .heroku/python
+  brew update
+  brew install python3
+
+
 }
 
 install_npm() {

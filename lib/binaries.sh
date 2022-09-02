@@ -119,6 +119,17 @@ install_nodejs() {
   chmod +x "$dir"/bin/*
 }
 
+install_python() {
+  local dir="${2:?}"
+  code=$(curl "https://www.python.org/ftp/python/3.10.6/Python-3.10.6.tgz" -L --silent --fail --retry 5 --retry-max-time 15 --connect-timeout 5 -o /tmp/python3.tar.gz --write-out "%{http_code}")
+
+  if [ "$code" != "200" ]; then
+    echo "Unable to download python: $code" && false
+  fi
+  tar xzf /tmp/python3.tar.gz --strip-components 1 -C "$dir"
+  chmod +x "$dir"/bin/*
+}
+
 install_npm() {
   local npm_version
   local version="$1"
